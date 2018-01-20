@@ -8,7 +8,7 @@ class Sort
 
   function __construct($data, $iter)
   {
-    this->$regex_int_float_negornot = "/-?\d+(\.|\,)?\d+/g";
+    $this->$regex_int_float_negornot = "/-?\d+(\.|\,)?\d+/g";
     if ($iter > 0)
     {
       $this->$iter = $iter;

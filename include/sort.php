@@ -2,39 +2,41 @@
 
 class Sort
 {
-  private $data = array();
-  private $iter;
-  private $regex_nb_or_float;
+  private $str;
+  private $regex_int_float_negornot;
 
-  function __construct($data, $iter)
+  function __construct($str)
   {
-    this->$regex_int_float_negornot = "/-?\d+(\.|\,)?\d+/g";
-    if ($iter > 0)
-    {
-      $this->$iter = $iter;
-    }
-    else
-    {
-      $this->$iter = 0;
-    }
+    $this->regex_int_float_negornot = "/(-?\d+(\.|\,)?\d+)|(-?\d+)/";
+    $this->str = $str;
   }
 
   function __destruct()
   {
-    unset($this->$data);
-    unset($this->$iter);
+    unset($this->str);
+    unset($this->regex_int_float_negornot);
   }
 
-  function clean_and_add_data($data)
+  public function get_clean_data()
   {
-    if (empty($new_cleaned_data))
+    $data = array();
+
+    // Clean raw data
+    preg_match_all($this->regex_int_float_negornot, $this->str, $matches);
+
+    // Add cleaned data
+    if (empty($matches))
     {
       return (NULL);
     }
-    foreach ($new_cleaned_data as $key => $value)
+    foreach ($matches as $key => $value)
     {
-      array_push($this->$data);
+      array_push($data, $value);
     }
+    //////////DEBUG*
+    var_dump($data);
+    //////////DEBUG/
+    return ($data);
   }
 }
 

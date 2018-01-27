@@ -19,7 +19,6 @@ class                 Autoloader
       if ($classToLoad != "Autoloader")
         {
           include $classToLoad . '.php';
-          //include "/srv/http/include/" . $classToLoad . '.php';
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-
+// TODO: ALL JAVADOC
 class             Sort
 {
   private         $str;
@@ -19,8 +19,9 @@ class             Sort
 
   public function get_clean_data()
   {
-                  $data = array();
-                  $clean_data = array();
+    $data = array();
+    $clean_data = array();
+    $clean_data_floats = array();
 
     // Clean raw data
     preg_match_all($this->regex_int_float_negornot, $this->str, $matches);
@@ -35,10 +36,15 @@ class             Sort
       array_push($data, $value);
     }
     $clean_data = str_replace(",", ".", $data[0]);
+    foreach ($clean_data as $key => $value)
+    {
+      array_push($clean_data_floats, floatval($value));
+    }
+
     //////////DEBUG*
-    var_dump($clean_data);
+    var_dump($clean_data_floats);
     //////////DEBUG/
-    return ($clean_data);
+    return ($clean_data_floats);
   }
 }
 

@@ -30,11 +30,13 @@
     </div>
     <div class="debug">
       <?php
-
-        var_dump($config->getPath());
-
+      //////////////////////
+//phpinfo();
+      /////////////////////
         $sort = new Sort("cjebc33.3e4 r'8 ,,3,2;;-9.0-1");
         $sort->get_clean_data();
+        $db = new DB();
+        $db->connect();
       ?>
     </div>
   </body>

@@ -5,7 +5,7 @@
  */
 class                       Singleton
 {
-    private static                $instance = NULL;
+    private static          $instance = NULL;
 
     // Prevent any other singleton object to be created
     protected function      __construct() {}
@@ -17,7 +17,7 @@ class                       Singleton
 
     public static function  getInstance()
     {
-        $cls = get_called_class(); // Late-static-bound class name
+        $cls = get_called_class();
         if (!isset(self::$instance)) {
             self::$instance = new static();
         }
@@ -32,45 +32,36 @@ class                       Config extends Singleton
 {
   private static            $path;
   private static            $ip;
+  private static            $dbname;
+  private static            $username;
+  private static            $password;
 
   function                  __construct()
   {
     // TODO: Dev, to comment once the project is finished
-    static::$path =  "/srv/http";
-    static::$ip =    "localhost";
+    //static::$path = "/srv/http";
+    //static::$password = "rootroot";
+
+    static::$dbname = "algostat_db";
     static::$username = "root";
-    static::$password = "etnaDev";
 
     // TODO: Prod, to uncomment once the project is finished
-    //static::$path = "/var/www/html/algostat1";
-    //static::$ip =   "95.85.29.173";
+    static::$path = "/var/www/html/algostat1";
+
+    static::$ip =   "95.85.29.173";
+    static::$password = "etnaDev";
   }
 
-  function                  getPath()
-  {
-    return (static::$path);
-  }
+  function getPath() {return (static::$path);}
 
-  function                  getIP()
-  {
-    return (static::$ip);
-  }
+  function getIP() {return (static::$ip);}
 
-  function                  getUsername()
-  {
-    return (static::$username);
-  }
+  function getDBname() {return (static::$dbname);}
 
-  function                  getPassword()
-  {
-    return (static::$password);
-  }
+  function getUsername() {return (static::$username);}
 
-  function                  setPassword($password)
-  {
-    static::$password = $password;
-  }
+  function getPassword() {return (static::$password);}
 
-  // TODO: Setters
+  // TODO: Setters ?
 }
 ?>

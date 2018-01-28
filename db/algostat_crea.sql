@@ -35,5 +35,9 @@ CREATE TABLE IF NOT EXISTS          `Stat` (
 
 ALTER TABLE Stat ADD CONSTRAINT FOREIGN KEY (FK_sort_type_id) REFERENCES Sort_type(sort_type_id);
 
+#------------------------------------------------------------
+# Sort types insertion
+#------------------------------------------------------------
+
 INSERT INTO Sort_type (sort_type_name)
 VALUES ("Insertion"), ("Selection"), ("Bubble");

@@ -17,7 +17,7 @@ class             Sort
     unset($this->regex_int_float_negornot);
   }
 
-  public function get_clean_data()
+  function get_clean_data()
   {
     $data = array();
     $clean_data = array();
@@ -46,6 +46,33 @@ class             Sort
     //////////DEBUG/
     return ($clean_data_floats);
   }
+
+  function sort_by_type($type, $seq)
+  {
+    return ($this->$type($seq));
+  }
+
+  protected function insertion($seq)
+  {
+  	for ($i = 0; $i < count($seq); $i++)
+    {
+  		$value = $seq[$i];
+  		$j = ($i - 1);
+  		while ($j >= 0 && $seq[$j] > $value)
+      {
+  			$seq[$j + 1] = $seq[$j];
+  			$j--;
+  		}
+  		$seq[$j + 1] = $value;
+  	}
+  return $seq;
+  }
+
+  protected function selection()
+  {}
+
+  protected function bubble()
+  {}
 }
 
 ?>

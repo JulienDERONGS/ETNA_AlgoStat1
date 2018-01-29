@@ -11,7 +11,11 @@
       $autoloader = new Autoloader();
       $config = Config::getInstance();
       $db = DB::getInstance();
+      $db->connect();
       /////////////// DEBUG
+      ini_set('display_errors', 1);
+      ini_set('display_startup_errors', 1);
+      error_reporting(E_ALL);
       var_dump($config->getIP());
       var_dump($config->getPath());
       var_dump($config->getDBname());
@@ -26,22 +30,28 @@
       <form action="/include/process.php" method="post">
         Sort type :</br>
         <select name="type">
-          <option value="insert">Insertion</option>
-          <option value="select">Selection</option>
+          <option value="insertion">Insertion</option>
+          <option value="selection">Selection</option>
           <option value="bubble">Bubble</option>
         </select></br></br>
-        Iterations (??1 to 50??) :</br>
-        <input type="number" name="iter" min="1" max="50"></br></br>
-        Numbers to sort :</br>
-        <textarea name="sequence" rows="5" cols="40">cjebc33.3e4 r'8 ,,3,2;;-9.0-1</textarea></br></br>
+        Sequence of numbers to sort :</br>
+        <textarea name="sequence" rows="10" cols="80">Any character can be written here, only integers and floats will be treated.&#13;&#10;Sequence exemple : cjebc33.3e4 r'8 ,,3,2;;-9.0-1</textarea></br></br>
         <input type="submit" name="submit" value="Sort">
       </form>
     </div>
+
+    <!-- TODO: DEBUG -->
     <div class="debug">
       <?php
         $sort = new Sort("cjebc33.3e4 r'8 ,,3,2;;-9.0-1");
         $sort->get_clean_data();
-        $db->connect();
+        echo "\n";
+
+        $test_array = array(3, 0, 2, 5, -1, 4, 1);
+        echo "Original Array :\n";
+        echo implode(', ',$test_array );
+        echo "\nSorted Array :\n";
+        print_r($sort->sort_by_type("insertion", $test_array));
       ?>
     </div>
   </body>

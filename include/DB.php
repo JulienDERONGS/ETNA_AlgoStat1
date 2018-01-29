@@ -10,7 +10,6 @@ class             DB extends SingletonFactory
 
   function        connect()
   {
-    $config = Config::getInstance();
     if (!static::$isConnected)
     {
       try
@@ -20,6 +19,7 @@ class             DB extends SingletonFactory
         // Set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         static::$conn = $conn;
+        static::$isConnected = true;
         return ($conn);
       }
       catch (PDOException $e)

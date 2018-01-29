@@ -20,6 +20,6 @@ class                       Config extends SingletonFactory
 
   function getPassword()    {return (static::$password);}
 
-  // TODO: Setters ? / destructor
+  // TODO: destructor?
 }
 ?>

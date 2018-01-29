@@ -8,26 +8,15 @@ class             DB extends SingletonFactory
   private static  $isConnected = false;
   private static  $conn = NULL;
 
-  function test()
-  {
-    echo("blabla</br>");
-  }
-
   function        connect()
   {
-    //
-echo "blablabla !";
     $config = Config::getInstance();
-          var_dump($config->getIP());
-          //
     if (!static::$isConnected)
     {
       try
       {
         $config = Config::getInstance();
-        /// DEBUG
-        var_dump($config->getIP());
-        $conn = new PDO("mysql:host=". $this->ip .";dbname=". $this->dbname, $this->username, $this->password);
+        $conn = new PDO("mysql:host=". $config->getIP() .";port=8889;dbname=". $config->getDBname(), $config->getUsername(), $config->getPassword());
         // Set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         static::$conn = $conn;

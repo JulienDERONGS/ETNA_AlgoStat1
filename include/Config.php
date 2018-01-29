@@ -5,7 +5,7 @@
 class                       Config extends SingletonFactory
 {
   private static            $path = "/var/www/html/algostat1";
-  private static            $ip = "95.85.29.173";
+  private static            $ip = "localhost";
   private static            $dbname ="algostat_db";
   private static            $username = "root";
   private static            $password = "etnaDev";

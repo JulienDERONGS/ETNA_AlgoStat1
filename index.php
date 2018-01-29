@@ -10,6 +10,7 @@
       require_once "include/Autoloader.php";
       $autoloader = new Autoloader();
       $config = Config::getInstance();
+      $db = DB::getInstance();
       /////////////// DEBUG
       var_dump($config->getIP());
       var_dump($config->getPath());
@@ -17,11 +18,6 @@
       var_dump($config->getUsername());
       var_dump($config->getPassword());
       ///////////////
-      $db = DB::getInstance();
-      $db->connect(); //DEBUG
-      $db->test();
-      //var_dump($db->());
-      //var_dump($config->getIP());
     ?>
   </head>
 

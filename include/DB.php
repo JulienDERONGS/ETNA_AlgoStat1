@@ -2,36 +2,46 @@
 /**
  * Database connexion class
  */
-class             DB
+// TODO: destructor!
+class             DB extends SingletonFactory
 {
-  private         $ip;
-  private         $dbname;
-  private         $username;
-  private         $password;
+  private static  $isConnected = false;
+  private static  $conn = NULL;
 
-  function        __construct()
+  function test()
   {
-    require_once "include/Autoloader.php";
-    $autoloader = new Autoloader();
-    $config = Config::getInstance();
-
-    $ip = $config->getIP();
-    $dbname = $config->getDBname();
-    $username = $config->getUsername();
-    $password = $config->getPassword();
+    echo("blabla</br>");
   }
 
   function        connect()
   {
-    try
+    //
+echo "blablabla !";
+    $config = Config::getInstance();
+          var_dump($config->getIP());
+          //
+    if (!static::$isConnected)
     {
-      $conn = new PDO("mysql:host=". $this->ip .";dbname=". $this->dbname .", ". $this->username .", ". $this->password);
-      // Set the PDO error mode to exception
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      try
+      {
+        $config = Config::getInstance();
+        /// DEBUG
+        var_dump($config->getIP());
+        $conn = new PDO("mysql:host=". $this->ip .";dbname=". $this->dbname, $this->username, $this->password);
+        // Set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        static::$conn = $conn;
+        return ($conn);
+      }
+      catch (PDOException $e)
+      {
+        echo "Error: ". $e->getMessage();
+        return (NULL);
+      }
     }
-    catch (PDOException $e)
+    else
     {
-      echo "Error: ". $e->getMessage();
+      return (static::$conn);
     }
   }
 

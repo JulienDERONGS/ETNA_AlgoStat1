@@ -1,67 +1,25 @@
 <?php
-
-/**
- * Inheritable singleton
- */
-class                       Singleton
-{
-    private static          $instance = NULL;
-
-    // Prevent any other singleton object to be created
-    protected function      __construct() {}
-    protected function      __clone() {}
-    public function         __wakeup()
-    {
-        throw new Exception("Unserialization of the singleton forbidden.");
-    }
-
-    public static function  getInstance()
-    {
-        $cls = get_called_class();
-        if (!isset(self::$instance)) {
-            self::$instance = new static();
-        }
-        return self::$instance;
-    }
-}
-
 /**
  * Config class, getters/setters only
  */
-class                       Config extends Singleton
+class                       Config extends SingletonFactory
 {
-  private static            $path;
-  private static            $ip;
-  private static            $dbname;
-  private static            $username;
-  private static            $password;
+  private static            $path = "/var/www/html/algostat1";
+  private static            $ip = "95.85.29.173";
+  private static            $dbname ="algostat_db";
+  private static            $username = "root";
+  private static            $password = "etnaDev";
 
-  function                  __construct()
-  {
-    // TODO: Dev, to comment once the project is finished
-    //static::$path = "/srv/http";
-    //static::$password = "rootroot";
+  function getPath()        {return (static::$path);}
 
-    static::$dbname = "algostat_db";
-    static::$username = "root";
+  function getIP()          {return (static::$ip);}
 
-    // TODO: Prod, to uncomment once the project is finished
-    static::$path = "/var/www/html/algostat1";
+  function getDBname()      {return (static::$dbname);}
 
-    static::$ip =   "95.85.29.173";
-    static::$password = "etnaDev";
-  }
+  function getUsername()    {return (static::$username);}
 
-  function getPath() {return (static::$path);}
+  function getPassword()    {return (static::$password);}
 
-  function getIP() {return (static::$ip);}
-
-  function getDBname() {return (static::$dbname);}
-
-  function getUsername() {return (static::$username);}
-
-  function getPassword() {return (static::$password);}
-
-  // TODO: Setters ?
+  // TODO: Setters ? / destructor
 }
 ?>

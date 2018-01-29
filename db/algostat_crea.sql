@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS          `Stat` (
         FK_sort_type_id             int NOT NULL,
         stat_time                   float(5, 5) NOT NULL,
         stat_cost                   int(10) NOT NULL,
+        stat_total_nb               int(10) NOT NULL,
         PRIMARY KEY                 (stat_id)
 ) ENGINE = InnoDB;
 

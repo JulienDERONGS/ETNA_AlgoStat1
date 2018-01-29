@@ -27,7 +27,7 @@
 
   <body>
     <div class="algo_form">
-      <form action="/include/process.php" method="post">
+      <form action="process.php" method="post">
         Sort type :</br>
         <select name="type">
           <option value="insertion">Insertion</option>
@@ -44,14 +44,14 @@
     <div class="debug">
       <?php
         $sort = new Sort("cjebc33.3e4 r'8 ,,3,2;;-9.0-1");
-        $sort->get_clean_data();
+        $clean_data = $sort->get_clean_data();
         echo "\n";
 
-        $test_array = array(3, 0, 2, 5, -1, 4, 1);
+        $test_array = array();
         echo "Original Array :\n";
-        echo implode(', ',$test_array );
+        print_r($clean_data);
         echo "\nSorted Array :\n";
-        print_r($sort->sort_by_type("insertion", $test_array));
+        print_r($sort->sort_by_type("insertion", $clean_data));
       ?>
     </div>
   </body>

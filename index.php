@@ -50,13 +50,28 @@
         echo "</br></br>Insertion</br>Original Array :</br>";
         print_r($clean_data);
         echo "</br>Stats + Sorted Array :</br>";
-        print_r($sort->sort_by_type("insertion", $clean_data));
+        $sort->sort_by_type("insertion", $clean_data);
+        print_r($sort->getSortedArray());
+        echo "</br>Sort time : ". $sort->getSortTime() ."";
+        echo "</br>Sort cost : ". $sort->getSortCost() ."</br>";
 
         $test_array = array();
         echo "</br></br>Selection</br>Original Array :</br>";
         print_r($clean_data);
         echo "</br>Stats + Sorted Array :</br>";
-        print_r($sort->sort_by_type("selection", $clean_data));
+        $sort->sort_by_type("selection", $clean_data);
+        print_r($sort->getSortedArray());
+        echo "</br>Sort time : ". $sort->getSortTime() ."";
+        echo "</br>Sort cost : ". $sort->getSortCost() ."</br>";
+
+        $test_array = array();
+        echo "</br></br>Bubble</br>Original Array :</br>";
+        print_r($clean_data);
+        echo "</br>Stats + Sorted Array :</br>";
+        $sort->sort_by_type("bubble", $clean_data);
+        print_r($sort->getSortedArray());
+        echo "</br>Sort time : ". $sort->getSortTime() ."";
+        echo "</br>Sort cost : ". $sort->getSortCost() ."</br>";
       ?>
     </div>
   </body>

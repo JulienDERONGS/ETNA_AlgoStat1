@@ -121,12 +121,29 @@ class             Sort
     return $this->getSortedArray();
   }
 
-  protected function bubble()
+  protected function bubble($seq)
   {
     $this->sort_time = microtime(true);
     $this->sort_cost = 0;
 
-
+    $swapped = true;
+    while ($swapped)
+  	{
+  		$swapped = false;
+  		for ($i = 0, $seq_max = count($seq) - 1; $i < $seq_max; $i++)
+  		{
+  			if ($seq[$i] > $seq[$i + 1])
+  			{
+  				$seq = $this->swap_array($seq, $i, $i + 1);
+  				$swapped = true;
+  			}
+        $this->sort_cost++;
+  		}
+      $this->sort_cost++;
+  	}
+    $this->sort_time = microtime(true) - $this->sort_time;
+    $this->sorted_array = $seq;
+    return $this->getSortedArray();
   }
 }
 ?>

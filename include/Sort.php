@@ -60,9 +60,18 @@ class             Sort
     return ($clean_data_floats);
   }
 
+  // Sorting functions pointer, should use form types as $type
   function sort_by_type($type, $seq)
   {
     return ($this->$type($seq));
+  }
+
+  protected function swap_array($array, $left, $right)
+  {
+  	$tmp = $array[$left];
+    $array[$left] = $array[$right];
+  	$array[$right] = $tmp;
+  	return $array;
   }
 
   protected function insertion($seq)
@@ -88,13 +97,36 @@ class             Sort
     return $this->getSortedArray();
   }
 
-  protected function selection()
+  protected function selection($seq)
   {
+    $this->sort_time = microtime(true);
+    $this->sort_cost = 0;
 
+    for ($i = 0; $i < count($seq) - 1; $i++)
+    {
+    	$min = $i;
+    	for ($j = $i + 1; $j < count($seq); $j++)
+      {
+    		if ($seq[$j] < $seq[$min])
+        {
+    			$min = $j;
+    		}
+        $this->sort_cost++;
+    	}
+      $seq = $this->swap_array($seq, $i, $min);
+      $this->sort_cost++;
+    }
+    $this->sort_time = microtime(true) - $this->sort_time;
+    $this->sorted_array = $seq;
+    return $this->getSortedArray();
   }
 
   protected function bubble()
-  {}
-}
+  {
+    $this->sort_time = microtime(true);
+    $this->sort_cost = 0;
 
+
+  }
+}
 ?>

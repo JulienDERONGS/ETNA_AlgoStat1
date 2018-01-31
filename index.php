@@ -47,10 +47,16 @@
         echo "\n";
 
         $test_array = array();
-        echo "</br>Original Array :</br>";
+        echo "</br></br>Insertion</br>Original Array :</br>";
         print_r($clean_data);
         echo "</br>Stats + Sorted Array :</br>";
         print_r($sort->sort_by_type("insertion", $clean_data));
+
+        $test_array = array();
+        echo "</br></br>Selection</br>Original Array :</br>";
+        print_r($clean_data);
+        echo "</br>Stats + Sorted Array :</br>";
+        print_r($sort->sort_by_type("selection", $clean_data));
       ?>
     </div>
   </body>

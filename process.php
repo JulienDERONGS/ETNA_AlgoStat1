@@ -28,9 +28,11 @@
   }
 
   // Missing form input from user -> redirection + error, else sort
-  if (isset($_POST["submit"]) && isset($_POST["type"]) && isset($_POST["sequence"]))
+  if (isset($_POST["submit"]) && isset($_POST["type"]) &&
+  isset($_POST["sequence"]))
   {
-    if ($_POST['type'] == "insertion" || $_POST['type'] == "selection" || $_POST['type'] == "bubble")
+    if ($_POST['type'] == "insertion" || $_POST['type'] == "selection" ||
+    $_POST['type'] == "bubble")
     {
       try
       {
@@ -60,6 +62,9 @@
 
 
 
+
+
+  // TODO: Have to go through all unsets after sorting and before leaving
   if (isset($_POST['submit']))
   {
     unset($_POST['submit']);

@@ -20,7 +20,6 @@
       var_dump($config->getPath());
       var_dump($config->getDBname());
       var_dump($config->getUsername());
-      var_dump($config->getPassword());
       ///////////////
     ?>
   </head>
@@ -50,7 +49,7 @@
         $test_array = array();
         echo "</br>Original Array :</br>";
         print_r($clean_data);
-        echo "</br>Sorted Array :</br>";
+        echo "</br>Stats + Sorted Array :</br>";
         print_r($sort->sort_by_type("insertion", $clean_data));
       ?>
     </div>

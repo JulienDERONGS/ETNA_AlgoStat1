@@ -4,18 +4,31 @@ class             Sort
 {
   private         $str;
   private         $regex_int_float_negornot;
+  private         $sort_time;
+  private         $sort_cost;
+  private         $sorted_array;
 
-  function        __construct($str)
+  function __construct($str)
   {
     $this->regex_int_float_negornot = "/(-?\d+(\.|\,)?\d+)|(-?\d+)/";
     $this->str = $str;
+    $sort_time = 0;
+    $sort_cost = 0;
+    $sorted_array = array();
   }
 
-  function        __destruct()
+  function __destruct()
   {
     unset($this->str);
     unset($this->regex_int_float_negornot);
+    unset($sort_time);
+    unset($sort_cost);
+    unset($sorted_array);
   }
+
+  function getSortTime()    {return ($this->sort_time);}
+  function getSortCost()    {return ($this->sort_cost);}
+  function getSortedArray() {return ($this->sorted_array);}
 
   function get_clean_data()
   {
@@ -54,6 +67,9 @@ class             Sort
 
   protected function insertion($seq)
   {
+    $this->sort_time = microtime(true);
+    $this->sort_cost = 0;
+
   	for ($i = 0; $i < count($seq); $i++)
     {
   		$value = $seq[$i];
@@ -62,14 +78,20 @@ class             Sort
       {
   			$seq[$j + 1] = $seq[$j];
   			$j--;
+        $this->sort_cost++;
   		}
   		$seq[$j + 1] = $value;
+      $this->sort_cost++;
   	}
-  return $seq;
+    $this->sort_time = microtime(true) - $this->sort_time;
+    $this->sorted_array = $seq;
+    return $this->getSortedArray();
   }
 
   protected function selection()
-  {}
+  {
+
+  }
 
   protected function bubble()
   {}

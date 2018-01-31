@@ -1,6 +1,6 @@
 <?php
 /**
- * Config class, getters/setters only
+ * Config class, getters only
  */
 class                       Config extends SingletonFactory
 {

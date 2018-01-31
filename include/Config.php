@@ -11,13 +11,9 @@ class                       Config extends SingletonFactory
   private static            $password = "etnaDev";
 
   function getPath()        {return (static::$path);}
-
   function getIP()          {return (static::$ip);}
-
   function getDBname()      {return (static::$dbname);}
-
   function getUsername()    {return (static::$username);}
-
   function getPassword()    {return (static::$password);}
 
   // TODO: destructor?

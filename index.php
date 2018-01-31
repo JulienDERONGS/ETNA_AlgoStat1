@@ -27,7 +27,7 @@
 
   <body>
     <div class="algo_form">
-      <form action="/algostat1/process.php" method="post">
+      <form action="<?php echo $config->getProjPath() ?>/process.php" method="post">
         Sort type :</br>
         <select name="type">
           <option value="insertion">Insertion</option>

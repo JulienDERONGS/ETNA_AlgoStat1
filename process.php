@@ -27,7 +27,6 @@
     unset($_POST['err']);
   }
 
-    echo "DEBUG";
   // Missing form input from user -> redirection + error, else sort
   if (isset($_POST["submit"]) && isset($_POST["type"]) && isset($_POST["sequence"]))
   {

@@ -48,9 +48,9 @@
         echo "\n";
 
         $test_array = array();
-        echo "Original Array :\n";
+        echo "</br>Original Array :</br>";
         print_r($clean_data);
-        echo "\nSorted Array :\n";
+        echo "</br>Sorted Array :</br>";
         print_r($sort->sort_by_type("insertion", $clean_data));
       ?>
     </div>

@@ -10,12 +10,19 @@ class                       Config extends SingletonFactory
   private static            $username = "root";
   private static            $password = "etnaDev";
 
+  function __destruct()
+  {
+    static::$path = NULL;
+    static::$ip = NULL;
+    static::$dbname = NULL;
+    static::$username = NULL;
+    static::$password = NULL;
+  }
+
   function getPath()        {return (static::$path);}
   function getIP()          {return (static::$ip);}
   function getDBname()      {return (static::$dbname);}
   function getUsername()    {return (static::$username);}
   function getPassword()    {return (static::$password);}
-
-  // TODO: destructor?
 }
 ?>

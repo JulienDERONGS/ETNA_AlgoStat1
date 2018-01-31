@@ -6,28 +6,16 @@
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
-  /* TODO: halp del
-  <form action="/include/process.php" method="post">
-    Sort type :</br>
-    <select name="type">
-      <option value="insertion">Insertion</option>
-      <option value="selection">Selection</option>
-      <option value="bubble">Bubble</option>
-    </select></br></br>
-    Numbers to sort :</br>
-    <textarea name="sequence" rows="10" cols="80">Any character can be written here, only integers and floats will be treated.&#13;&#10;Sequence exemple : cjebc33.3e4 r'8 ,,3,2;;-9.0-1</textarea></br></br>
-    <input type="submit" name="submit" value="Sort">
-  </form>
-  */
 
-  // TODO: Loading gif
+  // TODO: Loading gif if sort takes a long time ?
+
   // Unset all error POSTs
-  if (isset($_POST['err']))
+  if (isset($_POST['processed']))
   {
-    unset($_POST['err']);
+    unset($_POST['processed']);
   }
 
-  // Missing form input from user -> redirection + error, else sort
+  // Incorrect form input -> redirection + error, else sort
   if (isset($_POST["submit"]) && isset($_POST["type"]) &&
   isset($_POST["sequence"]))
   {
@@ -41,13 +29,13 @@
       }
       catch (Exception $e)
       {
-        $_POST['err'] = "seq"; // TODO: display err on index.php
+        $_POST['processed'] = "seq"; // TODO: display err on index.php
         header("Location: index.php");
       }
       // Empty array -> redirection to index
       if (!$clean_seq)
       {
-        $_POST['err'] = "seq"; // TODO: display err on index.php
+        $_POST['processed'] = "seq"; // TODO: display err on index.php
         header("Location: index.php");
       }
       $_POST['clean_seq['] = $clean_seq;
@@ -56,25 +44,16 @@
   }
   else
   {
-    $_POST['err'] = "missing_form_attr"; // TODO: display err on index.php
+    $_POST['processed'] = "missing_form_attr"; // TODO: display err on index.php
     header("Location: index.php");
   }
 
-
-
-
-
   // TODO: Have to go through all unsets after sorting and before leaving
-  if (isset($_POST['submit']))
-  {
-    unset($_POST['submit']);
-  }
-  if (isset($_POST['type']))
-  {
-    unset($_POST['type']);
-  }
-  if (isset($_POST['sequence']))
-  {
-    unset($_POST['sequence']);
-  }
+  if (isset($_POST['submit']))    { unset($_POST['submit']); }
+  if (isset($_POST['type']))      { unset($_POST['type']); }
+  if (isset($_POST['sequence']))  { unset($_POST['sequence']); }
+  $_POST['processed'] = "ok";
+  header("Location: index.php");
+
+  // Let DB class add results to the db
 ?>

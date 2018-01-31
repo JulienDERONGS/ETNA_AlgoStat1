@@ -15,7 +15,7 @@ class             DB extends SingletonFactory
       try
       {
         $config = Config::getInstance();
-        $conn = new PDO("mysql:host=". $config->getIP() .";port=8889;dbname=". $config->getDBname(), $config->getUsername(), $config->getPassword());
+        $conn = new PDO("mysql:host=". $config->getIP() .";dbname=". $config->getDBname(), $config->getUsername(), $config->getPassword());
         // Set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         static::$conn = $conn;

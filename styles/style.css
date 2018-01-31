@@ -1,8 +1,15 @@
-html {
+html
+{
   font-size: 20px;
   font-family: 'Open Sans', sans-serif;
 }
 
-.algo_form {
+.algo_form
+{
   text-align: center;
+}
+
+select, input
+{
+  font-size: 50px;
 }

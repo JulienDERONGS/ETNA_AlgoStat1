@@ -6,6 +6,7 @@ class             Sort
   private         $regex_int_float_negornot;
   private         $sort_time;
   private         $sort_cost;
+  private         $sort_total_nb;
   private         $sorted_array;
 
   function __construct($str)
@@ -14,6 +15,7 @@ class             Sort
     $this->str = $str;
     $sort_time = 0;
     $sort_cost = 0;
+    $sort_total_nb = 0;
     $sorted_array = array();
   }
 
@@ -21,13 +23,15 @@ class             Sort
   {
     unset($this->str);
     unset($this->regex_int_float_negornot);
-    unset($sort_time);
-    unset($sort_cost);
-    unset($sorted_array);
+    unset($this->sort_time);
+    unset($this->sort_cost);
+    unset($this->sort_total_nb);
+    unset($this->sorted_array);
   }
 
   function getSortTime()    {return ($this->sort_time);}
   function getSortCost()    {return ($this->sort_cost);}
+  function getSortTotalNb() {return ($this->sort_total_nb);}
   function getSortedArray() {return ($this->sorted_array);}
 
   function get_clean_data()
@@ -94,6 +98,7 @@ class             Sort
   	}
     $this->sort_time = microtime(true) - $this->sort_time;
     $this->sorted_array = $seq;
+    $this->sort_total_nb = count($seq);
     return $this->getSortedArray();
   }
 
@@ -118,6 +123,7 @@ class             Sort
     }
     $this->sort_time = microtime(true) - $this->sort_time;
     $this->sorted_array = $seq;
+    $this->sort_total_nb = count($seq);
     return $this->getSortedArray();
   }
 
@@ -143,6 +149,7 @@ class             Sort
   	}
     $this->sort_time = microtime(true) - $this->sort_time;
     $this->sorted_array = $seq;
+    $this->sort_total_nb = count($seq);
     return $this->getSortedArray();
   }
 }

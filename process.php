@@ -24,6 +24,8 @@
     {
       try
       {
+        // Sanitize user input & clean it for future sorting
+        $_POST['sequence'] = htmlspecialchars($_POST['sequence']);
         $sort = new Sort($_POST['sequence']);
         $clean_seq = $sort->get_clean_data($_POST['sequence']);
       }
@@ -38,6 +40,7 @@
         $_POST['processed'] = "seq"; // TODO: display err on index.php
         header("Location: index.php");
       }
+      // Start sorting
       $_POST['clean_seq['] = $clean_seq;
       $_POST['sorted_seq'] = $sort->sort_by_type($_POST['type'], $clean_seq);
     }
@@ -48,12 +51,14 @@
     header("Location: index.php");
   }
 
-  // TODO: Have to go through all unsets after sorting and before leaving
+  // Let DB class add results to the db
+  $db = DB::getInstance();
+  $db->connect();
+  $db->add_data($sort, $_POST['type']);
+
   if (isset($_POST['submit']))    { unset($_POST['submit']); }
   if (isset($_POST['type']))      { unset($_POST['type']); }
   if (isset($_POST['sequence']))  { unset($_POST['sequence']); }
   $_POST['processed'] = "ok";
   header("Location: index.php");
-
-  // Let DB class add results to the db
 ?>

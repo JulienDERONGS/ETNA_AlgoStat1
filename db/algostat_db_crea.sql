@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS          `Sort_type` (
 CREATE TABLE IF NOT EXISTS          `Stat` (
         stat_id                     int auto_increment NOT NULL,
         FK_sort_type_id             int NOT NULL,
-        stat_time                   float(5, 5) NOT NULL,
+        stat_time                   float(15, 15) NOT NULL,
         stat_cost                   int(10) NOT NULL,
         stat_total_nb               int(10) NOT NULL,
         PRIMARY KEY                 (stat_id)
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS          `Stat` (
 ALTER TABLE Stat ADD CONSTRAINT FOREIGN KEY (FK_sort_type_id) REFERENCES Sort_type(sort_type_id);
 
 #------------------------------------------------------------
-# Sort types insertion
+# Sort type names insertion
 #------------------------------------------------------------
 
 INSERT INTO Sort_type (sort_type_name)
-VALUES ("Insertion"), ("Selection"), ("Bubble");
+VALUES ("insertion"), ("selection"), ("bubble");

@@ -1,6 +1,6 @@
 <?php
 /**
- * Database connexion class
+ * Database connexion and requests class
  */
 // TODO: destructor!
 class             DB extends SingletonFactory
@@ -34,42 +34,38 @@ class             DB extends SingletonFactory
     }
   }
 
-  function        add_data()
+  // Add stats of the last run sort into the DB
+  function        add_data($sort, $sort_type_name)
   {
     try
     {
-      // Prepare SQL and bind parameters
-      $stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email)
-      VALUES (:firstname, :lastname, :email)");
-      $stmt->bindParam(':firstname', $firstname);
-      $stmt->bindParam(':lastname', $lastname);
-      $stmt->bindParam(':email', $email);
-
-      // insert a row
-      $firstname = "John";
-      $lastname = "Doe";
-      $email = "john@example.com";
+      $conn = $this->connect();
+      $stmt = $conn->prepare("SELECT  `sort_type_id`
+                              FROM    `Sort_type`
+                              WHERE   `sort_type_name` = :sort_type_name
+                              LIMIT   1
+                              ");
+      $stmt->bindParam(":sort_type_name", $sort_type_name, PDO::PARAM_STR);
       $stmt->execute();
+      $sort_type_id = $stmt->fetch();
 
-      // insert another row
-      $firstname = "Mary";
-      $lastname = "Moe";
-      $email = "mary@example.com";
+      // Insert the last sort's statistics into the database
+      $stmt = $conn->prepare("INSERT INTO Stat (`FK_sort_type_id`, `stat_time`, `stat_cost`, `stat_total_nb`)
+                              VALUES ($sort_type_id[0], :stat_time, :stat_cost, :stat_total_nb)"
+                            );
+      $stmt->bindValue(":stat_time", strval($sort->getSortTime()), PDO::PARAM_STR);
+      $stmt->bindValue(":stat_cost", $sort->getSortCost(), PDO::PARAM_INT);
+      $stmt->bindValue(":stat_total_nb", $sort->getSortTotalNb(), PDO::PARAM_STR);
       $stmt->execute();
-
-      // insert another row
-      $firstname = "Julie";
-      $lastname = "Dooley";
-      $email = "julie@example.com";
-      $stmt->execute();
-
-      echo "New records created successfully";
     }
     catch(PDOException $e)
     {
       echo "Error: ". $e->getMessage();
+      $conn = NULL;
+      return (NULL);
     }
-  $conn = null;
+  $conn = NULL;
+  return (true);
   }
 }
 ?>

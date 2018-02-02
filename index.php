@@ -76,7 +76,7 @@
     ?>
 
 <footer>
-    <h2>Gabril Cabanes, Julein Derongs, Sarah Al Janabi</h2>
+    <h2>Gabriel Cabanes, Julien Derongs, Sarah Al Janabi, 2018</h2>
 </footer>
   </body>
 </html>

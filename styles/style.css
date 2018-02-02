@@ -1,7 +1,7 @@
 /*Structure Page*/
 
 html {
-    font-family: 'Open Sans', sans-serif;
+   font-family: 'Ubuntu Condensed', Geneva, sans-serif;
 }
 
 body
@@ -10,12 +10,11 @@ body
     margin: 0;
     padding: 0;
     background: #E9EBEE;
-    font-family: 'Ubuntu', Geneva, sans-serif;
+    font-family: 'Ubuntu Condensed', Geneva, sans-serif;
 }
 
 section
 {
-
     margin-bottom: 1rem;
     background: url("bright-squares.png") #337AB7;
     border-radius: 0 0 20px 20px / 0 0 20px 20px;

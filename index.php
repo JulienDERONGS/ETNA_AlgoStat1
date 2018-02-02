@@ -21,9 +21,9 @@
       var_dump($config->getDBname());
       var_dump($config->getUsername());
       ///////////////
+      // IMPORTANT TODO: Add header on all pages pointing to index / graphs pages
     ?>
   </head>
-
   <body>
     <div class="algo_form">
       <form action="<?php echo $config->getProjPath() ?>/process.php" method="post">

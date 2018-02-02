@@ -30,25 +30,25 @@
   </head>
   <body>
     <!-- Header -->
-    <div class="wrapper">
-      <div class="header">
-        <a href="index.php">SORT</a>
-        <a href="graphs.php">GRAPHS</a>
-      </div>
-    </div>
-    <div class="algo_form">
-      <form action="<?php echo $config->getProjPath() ?>/process.php" method="post">
+ <section><h1>AlgoStat1 : Algorithms time and cost comparisons</h1></section>
+<div class="algo_form">
+        <div class="heading">
+            <a href="index.php">SORT</a>
+            <a href="graphs.php">GRAPHS</a>
+        </div>
+    <form action="<?php echo $config->getProjPath() ?>/process.php" method="post">
         Sort type :</br>
         <select name="type">
-          <option value="insertion">Insertion</option>
-          <option value="selection">Selection</option>
-          <option value="bubble">Bubble</option>
+            <option value="insertion">Insertion</option>
+            <option value="selection">Selection</option>
+            <option value="bubble">Bubble</option>
         </select></br></br>
         Sequence of numbers to sort :</br>
         <textarea name="sequence" rows="10" cols="80" placeholder="Any character can be written here, only integers and floats will be treated.&#13;&#10;Sequence exemple : cjebc33.3e4 r'8 ,,3,2;;-9.0-1"></textarea></br></br>
         <input type="submit" name="submit" value="Sort">
-      </form>
-    </div>
+    </form>
+</div>
+
     <?php
     if (isset($_SESSION['error'])) // Display error if there was one during sequence processing
     {
@@ -74,5 +74,9 @@
     session_unset();
     session_destroy();
     ?>
+
+<footer>
+    <h2>Gabril Cabanes, Julein Derongs, Sarah Al Janabi</h2>
+</footer>
   </body>
 </html>

@@ -50,12 +50,13 @@
 </div>
 
     <?php
-    if (isset($_SESSION['error'])) // Display error if there was one during sequence processing
+    if (isset($_SESSION['error']) && !empty($_SESSION['error'])) // Display error if there was one during sequence processing
     {
       echo ("<div class='sort_error'>");
-      echo ($_SESSION['error']); // Else display statistics
+      echo ($_SESSION['error']);
       echo ("</div>");
     }
+    // Else display statistics
     else if (isset($_SESSION['clean_seq']) && isset($_SESSION['sorted_seq']))
     {
       echo ("<div class='last_sort'>");
@@ -69,7 +70,8 @@
       {
         echo ($_SESSION['sorted_seq'][$i] ." ");
       }
-      echo ("This sort had a cost of". )
+      echo ("This sequence contained ".$_SESSION['nb']." numbers,
+      had a cost of ".$_SESSION['cost']." and executed itself in ".$_SESSION['time']." seconds.");
     }
     session_unset();
     session_destroy();

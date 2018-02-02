@@ -32,9 +32,23 @@
     <!-- prepare a DOM container with width and height -->
   <div id="graphs" style="width: 800px;height:600px;"></div>
   <script type="text/javascript">
+  var db_time_insertion = <?php echo $db->getJSTimesBySortType("insertion"); ?>;
+  var db_time_selection = <?php echo $db->getJSTimesBySortType("selection"); ?>;
+  var db_time_bubble = <?php echo $db->getJSTimesBySortType("bubble"); ?>;
+  var fact = []
+
+  let i = 0
+
+  for(const one of db_time_insertion) {
+    fact.push(i + 1)
+    i++;
+  }
+
+  //for(var i = 0, len = db_time_insertion.length; i < len; i++)
 
   // based on prepared DOM, initialize echarts instance
   var myChart = echarts.init(document.getElementById('graphs'));
+
   option =
   {
     title: {
@@ -60,24 +74,24 @@
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['cat1','cat2','cat3', 'cat4']
+        data: fact
     },
     yAxis: {
         type: 'value'
     },
     series: [
     {
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        data: db_time_insertion,
         type: 'line',
         smooth: true
     },
     {
-        data: [600, 932, 901, 994, 1290, 1330, 1220],
+        data: db_time_selection,
         type: 'line',
         smooth: true
     },
     {
-        data: [700, 932, 1001, 769, 1290, 1330, 1220],
+        data: db_time_bubble,
         type: 'line',
         smooth: true
     }
@@ -86,6 +100,5 @@
         // use configuration item and data specified to show chart
         myChart.setOption(option);
   </script>
-  <?php $db->getTimesBySortType("insertion"); ?>
   </body>
 </html>

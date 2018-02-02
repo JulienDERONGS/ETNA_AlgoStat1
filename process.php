@@ -6,9 +6,9 @@
     session_destroy();
   }
   session_start();
-  $_SESSION['error'] = NULL;
-  $_SESSION['clean_seq'] = NULL;
-  $_SESSION['sorted_seq'] = NULL;
+  $_SESSION['clean_seq'] = "";
+  $_SESSION['sorted_seq'] = "";
+  $_SESSION['error'] = "";
 
   require_once "include/Autoloader.php";
   $autoloader = new Autoloader();
@@ -28,42 +28,62 @@
       }
       catch (Exception $e)
       {
-        $_SESSION['error'] = $e->getMessage();
+        if (empty($_SESSION['error']))
+        {
+          $_SESSION['error'] = $e->getMessage();
+        }
         header("Location: index.php");
       }
-      if (!$clean_seq) // empty user sequence
+      if (!isset($clean_seq) || empty($clean_seq)) // empty user sequence
       {
-        $_SESSION['error'] = "Please enter a correct sequence of numbers.";
-        header("Location: index.php");
+        if (empty($_SESSION['error']))
+        {
+          $_SESSION['error'] = "Please enter a correct sequence of numbers.";
+          header("Location: index.php");
+        }
       }
       else // start sorting
       {
         $_SESSION['clean_seq'] = $clean_seq;
         $_SESSION['sorted_seq'] = $sort->sort_by_type($_POST['type'], $clean_seq);
+        $_SESSION['cost'] = $sort->getSortCost();
+        $_SESSION['time'] = $sort->getSortTime();
+        $_SESSION['nb'] = $sort->getSortTotalNb();
       }
-      if (!$_SESSION['sorted_seq'])
+      if (empty($_SESSION['sorted_seq'])) // empty sorted array
       {
-        $_SESSION['error'] = "Clean sequence became empty during sorting.";
+        if (!$_SESSION['error'] || empty($_SESSION['error']))
+        {
+          $_SESSION['error'] = "Sequence is empty after sorting.";
+        }
         header("Location: index.php");
       }
     }
     else // wrong sort type
     {
-      $_SESSION['error'] = "Wrong sort type.";
+      if (!$_SESSION['error'] || empty($_SESSION['error']))
+      {
+        $_SESSION['error'] = "Wrong sort type.";
+      }
       header("Location: index.php");
     }
   }
   else // empty form element
   {
-    $_SESSION['error'] = "Empty form element, please fill them all.";
+    if (!$_SESSION['error'] || empty($_SESSION['error']))
+    {
+      $_SESSION['error'] = "Empty form element, please fill them all.";
+    }
     header("Location: index.php");
   }
 
   // Let DB class add results to the db
   $db = DB::getInstance();
   $db->connect();
-  $db->add_data($sort, $_POST['type']);
-
+  if (!$_SESSION['error'] || empty($_SESSION['error']))
+  {
+    $db->add_data($sort, $_POST['type']);
+  }
   if (isset($_POST['submit']))    { unset($_POST['submit']); }
   if (isset($_POST['type']))      { unset($_POST['type']); }
   if (isset($_POST['sequence']))  { unset($_POST['sequence']); }

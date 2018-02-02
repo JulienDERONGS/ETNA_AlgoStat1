@@ -67,24 +67,19 @@ class             DB extends SingletonFactory
     return (TRUE);
   }
 
-  function          getTimesBySortType($type)
+  function          getJSTimesBySortType($type)
   {
     $conn = $this->connect();
     $stmt = $conn->prepare("SELECT  s.`stat_time`
                             FROM    `Stat` s, `Sort_type` st
                             WHERE   st.`sort_type_id` = s.`FK_sort_type_id`
-                            AND     `sort_type_name` = ':type'
+                            AND     `sort_type_name` = :type
                             ");
-    $stmt->bindParam(":type", $type, PDO::PARAM_INT);
+    $stmt->bindParam(":type", $type, PDO::PARAM_STR);
     $stmt->execute();
-    $time = $stmt->fetchAll();
-    return ($time);
-
-
-
-
-    ////////////////DEBUG
-    var_dump($time);
+    $time = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $conn = NULL;
+    return (json_encode($time));
   }
 }
 ?>

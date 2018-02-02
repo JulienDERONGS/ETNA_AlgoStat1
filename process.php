@@ -1,5 +1,5 @@
 <?php
-  // Initialize session
+  // Initialize session & classes
   if ($_SESSION)
   {
     session_unset();
@@ -9,10 +9,22 @@
   $_SESSION['clean_seq'] = "";
   $_SESSION['sorted_seq'] = "";
   $_SESSION['error'] = "";
-
   require_once "include/Autoloader.php";
   $autoloader = new Autoloader();
 
+  // Fill form processing
+  if (isset($_POST['fill_submit']) && isset($_POST['fill_nb'])
+    && intval($_POST['fill_nb']) > 0 && intval($_POST['fill_nb']) <= 100)
+    {
+      $_SESSION['error'] = "Fill process started"; // Security
+      $db = DB::getInstance();
+      $db->connect();
+      $db->fillRandomSequencesIntoDB($_POST['fill_nb']);
+      $_SESSION['error'] = "Fill successfully done !";
+      header("Location: index.php");
+    }
+
+  // Sequence addition form processing
   // Incorrect form input -> redirection + error, else sort
   if (isset($_POST["submit"]) && isset($_POST["type"]) &&
   isset($_POST["sequence"]))
@@ -77,7 +89,7 @@
     header("Location: index.php");
   }
 
-  // Let DB class add results to the db
+  // Let the DB class add results to the db
   $db = DB::getInstance();
   $db->connect();
   if (!$_SESSION['error'] || empty($_SESSION['error']))

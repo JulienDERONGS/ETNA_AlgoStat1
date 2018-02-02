@@ -67,7 +67,7 @@ class             DB extends SingletonFactory
     return (TRUE);
   }
 
-  function          getJSTimesBySortType($type)
+  function          getTimesBySortType($type)
   {
     $conn = $this->connect();
     $stmt = $conn->prepare("SELECT  s.`stat_time`
@@ -80,6 +80,92 @@ class             DB extends SingletonFactory
     $time = $stmt->fetchAll(PDO::FETCH_COLUMN);
     $conn = NULL;
     return (json_encode($time));
+  }
+
+  function          getCostsBySortType($type)
+  {
+    $conn = $this->connect();
+    $stmt = $conn->prepare("SELECT  s.`stat_cost`
+                            FROM    `Stat` s, `Sort_type` st
+                            WHERE   st.`sort_type_id` = s.`FK_sort_type_id`
+                            AND     `sort_type_name` = :type
+                            ");
+    $stmt->bindParam(":type", $type, PDO::PARAM_STR);
+    $stmt->execute();
+    $cost = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $conn = NULL;
+    return (json_encode($cost));
+  }
+
+  function          getTimesAndCostsBySortType($type)
+  {
+    $conn = $this->connect();
+    $stmt = $conn->prepare("SELECT  s.`stat_time`
+                            FROM    `Stat` s, `Sort_type` st
+                            WHERE   st.`sort_type_id` = s.`FK_sort_type_id`
+                            AND     `sort_type_name` = :type
+                            ");
+    $stmt->bindParam(":type", $type, PDO::PARAM_STR);
+    $stmt->execute();
+    $time = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    $stmt = $conn->prepare("SELECT  s.`stat_cost`
+                            FROM    `Stat` s, `Sort_type` st
+                            WHERE   st.`sort_type_id` = s.`FK_sort_type_id`
+                            AND     `sort_type_name` = :type
+                            ");
+    $stmt->bindParam(":type", $type, PDO::PARAM_STR);
+    $stmt->execute();
+    $cost = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $conn = NULL;
+    $i = 0;
+    while (isset($time[$i]) && isset($cost[$i]))
+    {
+      $tc[$i] = $time[$i] * $cost[$i];
+      $i++;
+    }
+    return (json_encode($tc));
+  }
+
+  // Using Mersenne Twister algorithm (100 times max per algorithm)
+  function          fillRandomSequencesIntoDB($timesUsingEachSortType)
+  {
+    $str = "";
+    $db = DB::getInstance();
+    $db->connect();
+
+    // Security checks
+    $t = intval($timesUsingEachSortType, 10);
+    unset($timesUsingEachSortType);
+    if ($t > 100 || $t < 1)
+    {
+      $t = 100;
+    }
+
+    // Adds random sequence of $t numbers $t times in DB using each algorithm, for better comparison purposes
+    for ($i = 0; $i < 3; $i++)
+    {
+      if ($i == 0) $sort_type = "insertion";
+      if ($i == 1) $sort_type = "selection";
+      if ($i == 2) $sort_type = "bubble";
+      for ($j = 0; $j < $t; $j++)
+      {
+        for ($k = 0; $k < $t; $k++)
+        {
+          $str .= strval(mt_rand(-42000, 42000)) . "";
+        }
+        // Convert to float and sort the string
+        $sort = new Sort($str);
+        $sort->sort_by_type($sort_type, $sort->get_clean_data());
+
+        // Add the sorted sequence into the DB
+        $db->add_data($sort, $sort_type);
+
+        // Empty $str and unset $sort for the next use
+        $str = "";
+        unset($sort);
+      }
+    }
   }
 }
 ?>

@@ -32,19 +32,16 @@
     <!-- prepare a DOM container with width and height -->
   <div id="graphs" style="width: 800px;height:600px;"></div>
   <script type="text/javascript">
-  var db_time_insertion = <?php echo $db->getJSTimesBySortType("insertion"); ?>;
-  var db_time_selection = <?php echo $db->getJSTimesBySortType("selection"); ?>;
-  var db_time_bubble = <?php echo $db->getJSTimesBySortType("bubble"); ?>;
+  var db_insertion = <?php echo $db->getTimesAndCostsBySortType("insertion"); ?>;
+  var db_selection = <?php echo $db->getTimesAndCostsBySortType("selection"); ?>;
+  var db_bubble = <?php echo $db->getTimesAndCostsBySortType("bubble"); ?>;
   var fact = []
 
-  let i = 0
-
-  for(const one of db_time_insertion) {
-    fact.push(i + 1)
+  let i = 0;
+  for(const one of db_insertion) {
+    fact.push(i + 1);
     i++;
   }
-
-  //for(var i = 0, len = db_time_insertion.length; i < len; i++)
 
   // based on prepared DOM, initialize echarts instance
   var myChart = echarts.init(document.getElementById('graphs'));
@@ -52,13 +49,13 @@
   option =
   {
     title: {
-        text: 'Time / numbers in sequence'
+        text: 'Y : [Time * Cost] / X : [Each algorithm run]'
     },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data:['data1', 'test2', 'test3']
+        data:[db_insertion, 'Selection', 'Bubble']
     },
     grid: {
         left: '3%',
@@ -81,17 +78,17 @@
     },
     series: [
     {
-        data: db_time_insertion,
+        data: db_insertion,
         type: 'line',
         smooth: true
     },
     {
-        data: db_time_selection,
+        data: db_selection,
         type: 'line',
         smooth: true
     },
     {
-        data: db_time_bubble,
+        data: db_bubble,
         type: 'line',
         smooth: true
     }

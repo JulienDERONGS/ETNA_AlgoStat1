@@ -48,7 +48,11 @@
         <input type="submit" name="submit" value="Sort">
     </form>
 </div>
-
+</br></br></br>
+<form class="randomFill_form" action="<?php echo $config->getProjPath() ?>/process.php" method="post">
+  <textarea name="fill_nb" rows="5" cols="300" placeholder="This form will add random sequence of X numbers X times in DB using each algorithm, for better comparison purposes (X is for you to choose here, 100 max. /!\ Don't use excessively please /!\)."></textarea></br>
+  <input type="submit" name="fill_submit" value="Click here after having entered a number between 1 and 100">
+</form>
     <?php
     if (isset($_SESSION['error']) && !empty($_SESSION['error'])) // Display error if there was one during sequence processing
     {
@@ -70,7 +74,7 @@
       {
         echo ($_SESSION['sorted_seq'][$i] ." ");
       }
-      echo ("This sequence contained ".$_SESSION['nb']." numbers,
+      echo ("</br>This sequence contained ".$_SESSION['nb']." numbers,
       had a cost of ".$_SESSION['cost']." and executed itself in ".$_SESSION['time']." seconds.");
     }
     session_unset();

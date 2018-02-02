@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>AlgoStat1 : Algorithms time and cost comparison</title>
+    <title>AlgoStat1 : Algorithms time and cost comparisons</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href="styles/style.css" rel="stylesheet" type="text/css">
     <?php
@@ -16,15 +16,23 @@
       ini_set('display_errors', 1);
       ini_set('display_startup_errors', 1);
       error_reporting(E_ALL);
+      /*
       var_dump($config->getIP());
       var_dump($config->getPath());
       var_dump($config->getDBname());
       var_dump($config->getUsername());
+      */
       ///////////////
-      // IMPORTANT TODO: Add header on all pages pointing to index / graphs pages
     ?>
   </head>
   <body>
+    <!-- Header -->
+    <div class="wrapper">
+      <div class="header">
+        <a href="index.php">SORT</a>
+        <a href="graphs.php">GRAPHS</a>
+      </div>
+    </div>
     <div class="algo_form">
       <form action="<?php echo $config->getProjPath() ?>/process.php" method="post">
         Sort type :</br>
@@ -42,6 +50,7 @@
     <!-- TODO: DEBUG -->
     <div class="debug">
       <?php
+      /*
         $sort = new Sort("cjebc33.3e4 r'8 ,,3,2;;-9.0-1");
         $clean_data = $sort->get_clean_data();
         echo "\n";
@@ -72,6 +81,7 @@
         print_r($sort->getSortedArray());
         echo "</br>Sort time : ". $sort->getSortTime() ."";
         echo "</br>Sort cost : ". $sort->getSortCost() ."</br>";
+      */
       ?>
     </div>
   </body>

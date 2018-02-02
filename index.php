@@ -6,7 +6,8 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href="styles/style.css" rel="stylesheet" type="text/css">
     <?php
-      // Initialize singleton classes
+      // Initialize classes and session
+      session_start();
       require_once "include/Autoloader.php";
       $autoloader = new Autoloader();
       $config = Config::getInstance();
@@ -16,12 +17,6 @@
       ini_set('display_errors', 1);
       ini_set('display_startup_errors', 1);
       error_reporting(E_ALL);
-      /*
-      var_dump($config->getIP());
-      var_dump($config->getPath());
-      var_dump($config->getDBname());
-      var_dump($config->getUsername());
-      */
       ///////////////
     ?>
   </head>
@@ -47,41 +42,19 @@
       </form>
     </div>
 
-    <!-- TODO: DEBUG -->
-    <div class="debug">
+    <div class="sort_error">
       <?php
-      /*
-        $sort = new Sort("cjebc33.3e4 r'8 ,,3,2;;-9.0-1");
-        $clean_data = $sort->get_clean_data();
-        echo "\n";
-
-        $test_array = array();
-        echo "</br></br>Insertion</br>Original Array :</br>";
-        print_r($clean_data);
-        echo "</br>Stats + Sorted Array :</br>";
-        $sort->sort_by_type("insertion", $clean_data);
-        print_r($sort->getSortedArray());
-        echo "</br>Sort time : ". $sort->getSortTime() ."";
-        echo "</br>Sort cost : ". $sort->getSortCost() ."</br>";
-
-        $test_array = array();
-        echo "</br></br>Selection</br>Original Array :</br>";
-        print_r($clean_data);
-        echo "</br>Stats + Sorted Array :</br>";
-        $sort->sort_by_type("selection", $clean_data);
-        print_r($sort->getSortedArray());
-        echo "</br>Sort time : ". $sort->getSortTime() ."";
-        echo "</br>Sort cost : ". $sort->getSortCost() ."</br>";
-
-        $test_array = array();
-        echo "</br></br>Bubble</br>Original Array :</br>";
-        print_r($clean_data);
-        echo "</br>Stats + Sorted Array :</br>";
-        $sort->sort_by_type("bubble", $clean_data);
-        print_r($sort->getSortedArray());
-        echo "</br>Sort time : ". $sort->getSortTime() ."";
-        echo "</br>Sort cost : ". $sort->getSortCost() ."</br>";
-      */
+      var_dump($_SESSION); //DEBUG
+      if (isset($_SESSION['error'])) // Display error if there was one during sequence processing
+      {
+        echo ($_SESSION['error']); // Else display statistics
+      }
+      else // AF
+      {
+        # code...
+      }
+      session_unset();
+      session_destroy();
       ?>
     </div>
   </body>

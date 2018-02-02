@@ -12,7 +12,7 @@ class             Sort
   function __construct($str)
   {
     $this->regex_int_float_negornot = "/(-?\d+(\.|\,)?\d+)|(-?\d+)/";
-    $this->str = $str;
+    $this->str = htmlspecialchars($str);
     $sort_time = 0;
     $sort_cost = 0;
     $sort_total_nb = 0;
@@ -29,10 +29,10 @@ class             Sort
     unset($this->sorted_array);
   }
 
-  function getSortTime()    {return ($this->sort_time);}
-  function getSortCost()    {return ($this->sort_cost);}
-  function getSortTotalNb() {return ($this->sort_total_nb);}
-  function getSortedArray() {return ($this->sorted_array);}
+  function getSortTime()      {return ($this->sort_time);}
+  function getSortCost()      {return ($this->sort_cost);}
+  function getSortTotalNb()   {return ($this->sort_total_nb);}
+  function getSortedArray()   {return ($this->sorted_array);}
 
   function get_clean_data()
   {
@@ -57,10 +57,6 @@ class             Sort
     {
       array_push($clean_data_floats, floatval($value));
     }
-
-    //////////DEBUG*
-    var_dump($clean_data_floats);
-    //////////DEBUG/
     return ($clean_data_floats);
   }
 

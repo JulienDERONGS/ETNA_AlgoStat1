@@ -1,19 +1,17 @@
 <?php
-  // Initialize singleton classes
+  // Initialize session
+  if ($_SESSION)
+  {
+    session_unset();
+    session_destroy();
+  }
+  session_start();
+  $_SESSION['error'] = NULL;
+  $_SESSION['clean_seq'] = NULL;
+  $_SESSION['sorted_seq'] = NULL;
+
   require_once "include/Autoloader.php";
   $autoloader = new Autoloader();
-  /////////////// DEBUG
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
-
-  // TODO: Loading gif if sort takes a long time ?
-
-  // Unset all error POSTs
-  if (isset($_POST['processed']))
-  {
-    unset($_POST['processed']);
-  }
 
   // Incorrect form input -> redirection + error, else sort
   if (isset($_POST["submit"]) && isset($_POST["type"]) &&
@@ -25,29 +23,39 @@
       try
       {
         // Sanitize user input & clean it for future sorting
-        $_POST['sequence'] = htmlspecialchars($_POST['sequence']);
         $sort = new Sort($_POST['sequence']);
-        $clean_seq = $sort->get_clean_data($_POST['sequence']);
+        $clean_seq = $sort->get_clean_data();
       }
       catch (Exception $e)
       {
-        $_POST['processed'] = "seq"; // TODO: display err on index.php
+        $_SESSION['error'] = $e->getMessage();
         header("Location: index.php");
       }
-      // Empty array -> redirection to index
-      if (!$clean_seq)
+      if (!$clean_seq) // empty user sequence
       {
-        $_POST['processed'] = "seq"; // TODO: display err on index.php
+        $_SESSION['error'] = "Please enter a correct sequence of numbers.";
         header("Location: index.php");
       }
-      // Start sorting
-      $_POST['clean_seq['] = $clean_seq;
-      $_POST['sorted_seq'] = $sort->sort_by_type($_POST['type'], $clean_seq);
+      else // start sorting
+      {
+        $_SESSION['clean_seq'] = $clean_seq;
+        $_SESSION['sorted_seq'] = $sort->sort_by_type($_POST['type'], $clean_seq);
+      }
+      if (!$_SESSION['sorted_seq'])
+      {
+        $_SESSION['error'] = "Clean sequence became empty during sorting.";
+        header("Location: index.php");
+      }
+    }
+    else // wrong sort type
+    {
+      $_SESSION['error'] = "Wrong sort type.";
+      header("Location: index.php");
     }
   }
-  else
+  else // empty form element
   {
-    $_POST['processed'] = "missing_form_attr"; // TODO: display err on index.php
+    $_SESSION['error'] = "Empty form element, please fill them all.";
     header("Location: index.php");
   }
 
@@ -59,6 +67,5 @@
   if (isset($_POST['submit']))    { unset($_POST['submit']); }
   if (isset($_POST['type']))      { unset($_POST['type']); }
   if (isset($_POST['sequence']))  { unset($_POST['sequence']); }
-  $_POST['processed'] = "ok";
   header("Location: index.php");
 ?>

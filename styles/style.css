@@ -312,3 +312,7 @@ textarea:focus
     padding-left: 3%;
     padding-right: 3%;
 }
+
+.sort_error {
+  color: red;
+}

@@ -1,11 +1,10 @@
 <?php
 /**
- * Database connexion and requests class
+ * Database connexion and requests classes
  */
-// TODO: destructor!
 class             DB extends SingletonFactory
 {
-  private static  $isConnected = false;
+  private static  $isConnected = NULL;
   private static  $conn = NULL;
 
   function        connect()
@@ -19,7 +18,7 @@ class             DB extends SingletonFactory
         // Set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         static::$conn = $conn;
-        static::$isConnected = true;
+        static::$isConnected = TRUE;
         return ($conn);
       }
       catch (PDOException $e)
@@ -64,8 +63,8 @@ class             DB extends SingletonFactory
       $conn = NULL;
       return (NULL);
     }
-  $conn = NULL;
-  return (true);
+    $conn = NULL;
+    return (TRUE);
   }
 }
 ?>

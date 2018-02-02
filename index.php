@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>AlgoStat1 : Algorithms time and cost comparisons</title>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond|Open+Sans|Roboto+Slab|Ubuntu+Condensed" rel="stylesheet"> 
     <link href="styles/style.css" rel="stylesheet" type="text/css">
     <?php
       // Initialize classes and session

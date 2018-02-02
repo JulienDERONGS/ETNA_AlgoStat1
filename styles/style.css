@@ -77,7 +77,6 @@ h2
     font-weight: normal;
 }
 
-
 .algo_form
 {
     z-index: 0;
@@ -94,7 +93,6 @@ h2
     justify-content: center;
     margin: 10px;
     padding-top: 7%;
-
 }
 /*E6E9EC*/
 .title
@@ -227,4 +225,13 @@ textarea:focus
 
 .sort_error {
   color: red;
+}
+
+.last_sort {
+  color: black;
+}
+
+.push {
+    z-index: 1;
+    padding-top: 7%;
 }

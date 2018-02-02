@@ -9,9 +9,9 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <link href="styles/style.css" rel="stylesheet" type="text/css">
     <?php
       // Initialize classes and session
@@ -49,21 +49,30 @@
         <input type="submit" name="submit" value="Sort">
       </form>
     </div>
-
-    <div class="sort_error">
-      <?php
-      var_dump($_SESSION); //DEBUG
-      if (isset($_SESSION['error'])) // Display error if there was one during sequence processing
+    <?php
+    if (isset($_SESSION['error'])) // Display error if there was one during sequence processing
+    {
+      echo ("<div class='sort_error'>");
+      echo ($_SESSION['error']); // Else display statistics
+      echo ("</div>");
+    }
+    else if (isset($_SESSION['clean_seq']) && isset($_SESSION['sorted_seq']))
+    {
+      echo ("<div class='last_sort'>");
+      echo ("</br>Unsorted sequence : ");
+      for ($i = 0; $i < (count($_SESSION['clean_seq'])); $i++)
       {
-        echo ($_SESSION['error']); // Else display statistics
+        echo ($_SESSION['clean_seq'][$i] ." ");
       }
-      else // AF
+      echo ("</br>Sorted sequence : ");
+      for ($i = 0; $i < (count($_SESSION['clean_seq'])); $i++)
       {
-        # code...
+        echo ($_SESSION['sorted_seq'][$i] ." ");
       }
-      session_unset();
-      session_destroy();
-      ?>
-    </div>
+      echo ("This sort had a cost of". )
+    }
+    session_unset();
+    session_destroy();
+    ?>
   </body>
 </html>
